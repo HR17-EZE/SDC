@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "qa-server-dev": "nodemon ./questions-answers/index.js"
   },
   "repository": {
     "type": "git",
@@ -18,9 +19,14 @@
   },
   "homepage": "https://github.com/HR17-EZE/SDC#readme",
   "dependencies": {
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "newrelic": "^7.5.1",
     "nodemon": "^2.0.7",
-    "postgres": "^1.0.2"
+    "pg": "^8.6.0",
+    "pg-format": "^1.0.4",
+    "postgres": "^1.0.2",
+    "underscore": "^1.13.1"
   }
 }
