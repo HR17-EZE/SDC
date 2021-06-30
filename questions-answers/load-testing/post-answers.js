@@ -1,14 +1,13 @@
 import http from 'k6/http';
-
+import {sleep} from 'k6';
 export let options= {
-  vus: 1,
-  duration: '3s',
+  vus: 3000,
+  duration: '30s',
 };
 var max = 3523507;
 export default function () {
-  var url1 = `http://localhost:3000/qa/questions/${max}/answers?`;
-  var url2 = `http://localhost:3000/qa/questions/${Math.floor(max/2)}/answers?`;
-  var url3 = `http://localhost:3000/qa/questions/${max-10}/answers?`;
+  var randomId = Math.floor(Math.random() * max);
+  var url = `http://localhost:3000/qa/questions/${randomId}/answers?`;
   var payload = JSON.stringify(
     {
       "body": "Yes thats right",
@@ -22,7 +21,6 @@ export default function () {
       'Content-Type': 'application/json',
     },
   };
-  http.post(url1, payload, params);
-  http.post(url2, payload, params);
-  http.post(url3, payload, params);
+  http.post(url, payload, params);
+  sleep(0.1);
 }

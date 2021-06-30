@@ -15,13 +15,6 @@ pool.on('error', (err, client) => {
 });
 
 module.exports = {
-  //TODO format date
-  //TODO answers should be object
-  //TODO fix error: more than one row returned by a subquery used as an expression error when
-  //when product id 5 is used
-
-  //run where product id =
-  //json agg
   getQuestions: (req, res) => {
   const {product_id, page, count} = req.query;
   const minIndex = (page - 1) * (count - 1);
@@ -152,7 +145,6 @@ VALUES ($1, $2, $3, $4, $5, false, 0);
   postAnswer: (req, res) => {
     const {body, name, email, photos} = req.body;
     const {question_id} = req.params;
-    console.log('id', question_id);
     (async () => {
       const client = await pool.connect();
       try {
@@ -213,7 +205,7 @@ WHERE answer_id = $1;
       }
       finally {
         client.release()
-        res.send(204);
+        res.sendStatus(204);
       }
     })().catch((err) => {
       console.log(err.stack);
@@ -222,7 +214,6 @@ WHERE answer_id = $1;
   },
   reportQuestion: (req, res) => {
     const {question_id} = req.params;
-    console.log('param', question_id)
     (async () => {
       const client = await pool.connect();
       const psql = `
@@ -235,7 +226,7 @@ WHERE question_id = $1;
       }
       finally {
         client.release()
-        res.send(204);
+        res.sendStatus(204);
       }
     })().catch((err) => {
       console.log(err.stack);
@@ -264,9 +255,3 @@ WHERE answer_id = $1;
     });
   },
 }
-//index product id or anythin we want fast access to
-//compound key
-
-
-
-      //brew install k6
